@@ -6,15 +6,12 @@ module Nrename
     def initialize(dir)
       @dir = Pathname.new dir
 
-      unless @dir.absolute?
-        fail ArgumentError, 'directory path should be absolute.'
-      end
-
       opts = Nrename.options
 
       @verbose = opts.verbose
       @execute = opts.execute
       @pattern = opts.pattern
+      @numbers_only = opts.numbers_only
     end
 
     def numbered_files
@@ -45,7 +42,13 @@ module Nrename
     def normalized_name_for(path)
       dirname, filename = path.split
       new_filename = filename.to_s
-      new_filename[@pattern, 1] = adjusted_number_string_for(path)
+      if @numbers_only
+        name = adjusted_number_string_for path
+        extname = filename.extname
+        new_filename = "#{name}#{extname}"
+      else
+        new_filename[@pattern, 1] = adjusted_number_string_for(path)
+      end
       dirname + new_filename
     end
 

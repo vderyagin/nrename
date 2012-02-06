@@ -5,11 +5,12 @@ module Nrename
   module Options
     def self.parse(args)
       default_options = {
-        :dirs      => [],
-        :execute   => false,
-        :pattern   => /(\d+)/,
-        :recursive => false,
-        :verbose   => true
+        :numbers_only => false,
+        :dirs         => [],
+        :execute      => false,
+        :pattern      => /(\d+)/,
+        :recursive    => false,
+        :verbose      => true
       }
 
       options = OpenStruct.new default_options
@@ -35,6 +36,11 @@ module Nrename
         opts.on '-R', '--recursive',
              'Process given directories recursively' do |rec|
           options.recursive = rec
+        end
+
+        opts.on '-N', '--numbers-only',
+             'Leave only numbers in file name' do |n|
+          options.numbers_only = n
         end
 
         opts.on '-v', '--[no-]verbose', 'Run verbosely' do |v|

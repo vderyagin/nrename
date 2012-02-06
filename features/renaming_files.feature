@@ -84,3 +84,21 @@ Feature: Renaming files
     And the following files should exist inside directory "bar":
     | 0033.txt |
     | 1234.txt |
+
+  Scenario: Renaming files with bare numbers
+    Given a directory named "dir"
+    And the following empty files inside directory "dir":
+    | bb1.txt    |
+    | bb10.txt   |
+    | cc0023.txt |
+    When I cd to "dir"
+    When I run `nrename -XN`
+    Then the exit status should be 0
+    And the following files should exist:
+    | 01.txt |
+    | 10.txt |
+    | 23.txt |
+    And the following files should not exist:
+    | bb1.txt    |
+    | bb1o.txt   |
+    | cc0023.txt |

@@ -85,16 +85,13 @@ describe Nrename::Directory do
 
   describe '#normalize' do
     before do
-      Nrename.options.stub execute: true
+      Nrename.options.stub execute: true, verbose: false
     end
 
     it 'renames files so than they can be sorted properly' do
       inside test_dir do
         touch %w[1 2 3 10 11 004 005 006]
       end
-
-      # turn off verbose output:
-      Nrename.options.stub verbose: false
 
       dir = Nrename::Directory.new test_dir
       dir.normalize
@@ -108,7 +105,16 @@ describe Nrename::Directory do
   describe '#normalized_name_for' do
     it 'returns normalized name for file' do
       dir = Nrename::Directory.new test_dir
-      file = Pathname.new(test_dir) + '1.txt'
+      file = Pathname.new(test_dir) + 'b1.txt'
+      dir.stub num_field_length: 4
+      new_name = dir.normalized_name_for(file).basename.to_s
+      new_name.should be == 'b0001.txt'
+    end
+
+    it 'returns bare number if numbers_only options is provided' do
+      Nrename.options.stub numbers_only: true
+      dir = Nrename::Directory.new test_dir
+      file = Pathname.new(test_dir) + 'b1.txt'
       dir.stub num_field_length: 4
       new_name = dir.normalized_name_for(file).basename.to_s
       new_name.should be == '0001.txt'
