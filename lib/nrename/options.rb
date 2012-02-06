@@ -43,6 +43,11 @@ module Nrename
           options.numbers_only = n
         end
 
+        opts.on '--regexp REGEXP', Regexp,
+             'Use REGEXP to match filenames' do |regexp|
+          options.pattern = regexp
+        end
+
         opts.on '-v', '--[no-]verbose', 'Run verbosely' do |v|
           options.verbose = v
         end

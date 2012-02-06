@@ -102,3 +102,18 @@ Feature: Renaming files
     | bb1.txt    |
     | bb1o.txt   |
     | cc0023.txt |
+
+
+  Scenario: Using custom regular expression
+    Given a directory named "dir"
+    And the following empty files inside directory "dir":
+    | 003_1.txt    |
+    | 003_10.txt   |
+    | 003_0023.txt |
+    When I cd to "dir"
+    When I run `nrename -X --regexp '^003_(\d+)\.txt'`
+    Then the exit status should be 0
+    And the following files should exist:
+    | 003_01.txt |
+    | 003_10.txt |
+    | 003_23.txt |
