@@ -39,8 +39,9 @@ Feature: Renaming files
     | 10.txt   |
     | 0023.txt |
     When I cd to "dir"
-    When I run `nrename`
+    When I run `nrename .`
     Then the exit status should be 0
+    And the stderr should contain "No renaming is done. Run with -X option to perform actual changes."
     And the following files should exist:
     | 1.txt    |
     | 10.txt   |

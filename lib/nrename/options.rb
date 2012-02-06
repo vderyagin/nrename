@@ -63,6 +63,12 @@ module Nrename
         end
       end.parse!(args)
 
+      unless options.execute
+        at_exit do
+          warn 'No renaming is done. Run with -X option to perform actual changes.'
+        end
+      end
+
       args.each do |arg|
         dir = File.expand_path arg
         if File.directory? dir
