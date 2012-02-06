@@ -63,7 +63,7 @@ module Nrename
         end
       end.parse!(args)
 
-      unless options.execute
+      if !options.execute && executable_name == 'nrename'
         at_exit do
           warn 'No renaming is done. Run with -X option to perform actual changes.'
         end
