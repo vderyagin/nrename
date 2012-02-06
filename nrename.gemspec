@@ -11,8 +11,23 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = 'nrename'
 
-  s.files        = Dir['{bin,lib}/**/*']
-  s.test_files   = Dir['{spec,features}/**/*']
+  s.files = [
+    'bin/nrename',
+    'lib/nrename.rb',
+    'lib/nrename/directory.rb',
+    'lib/nrename/options.rb',
+    'lib/nrename/version.rb'
+  ]
+
+  s.test_files = [
+    'features/options_processing.feature',
+    'features/renaming_files.feature',
+    'features/support/env.rb',
+    'spec/nrename/directory_spec.rb',
+    'spec/nrename/options_spec.rb',
+    'spec/spec_helper.rb'
+  ]
+
   s.executables  = ['nrename']
   s.require_path = 'lib'
 
