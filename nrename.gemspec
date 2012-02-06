@@ -1,4 +1,4 @@
-require File.expand_path '../lib/nrename', __FILE__
+require File.expand_path('../lib/nrename/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = 'nrename'
