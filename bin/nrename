@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require File.expand_path '../../lib/nrename', __FILE__
+
+Nrename.run ARGV.dup
