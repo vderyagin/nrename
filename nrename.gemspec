@@ -31,6 +31,6 @@ Gem::Specification.new do |s|
   s.executables  = ['nrename']
   s.require_path = 'lib'
 
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'aruba'
+  s.add_development_dependency 'rspec', '~> 2.8.0'
+  s.add_development_dependency 'aruba', '~> 0.4.11'
 end
