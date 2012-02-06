@@ -1,4 +1,5 @@
 require 'aruba/cucumber'
+require 'fileutils'
 
 ENV['PATH'] = "#{File.expand_path __FILE__, '../../../bin'}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
 
@@ -16,4 +17,8 @@ Then(/^the following files should exist inside directory "([^"]*)":$/) do |direc
   files.raw.each do |file_row|
     check_file_presence ["#{directory}/#{file_row[0]}"], true
   end
+end
+
+After do
+  FileUtils.rm_rf File.expand_path('../../../tmp', __FILE__)
 end
