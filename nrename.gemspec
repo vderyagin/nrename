@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = 'nrename'
 
+  s.license = 'MIT'
   s.files = [
     'bin/nrename',
     'lib/nrename.rb',
