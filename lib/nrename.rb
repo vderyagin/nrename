@@ -1,4 +1,5 @@
-$:.push File.expand_path(File.dirname __FILE__)
+libdir = File.expand_path(File.dirname __FILE__)
+$:.push libdir unless $:.include? libdir
 
 require 'nrename/version'
 require 'nrename/directory'
