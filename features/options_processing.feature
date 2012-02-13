@@ -21,7 +21,7 @@ Feature: Options processing
   Scenario: Displaying version
     When I run `nrename --version`
     Then the exit status should be 0
-    And the stdout should match /^(\d+)\.\g'1'\.\g'1'$/
+    And the stdout should match /^(\d+)\.(\d+)\.(\d+)$/
 
   Scenario: Passing valid directory name
     Given a directory named "foo_bar"

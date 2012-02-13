@@ -15,9 +15,9 @@ module Nrename
     end
 
     def numbered_files
-      @numbered_files ||= @dir.children
-        .reject(&:directory?)
-        .select { |file| file.basename.to_s =~ @pattern }
+      @numbered_files ||= @dir.children.select { |file|
+        !file.directory? && file.basename.to_s =~ @pattern
+      }
     end
 
     def num_field_length

@@ -14,8 +14,6 @@ module Nrename
   def self.run(args=[])
     @options = Options.parse args
 
-    options.dirs
-      .map { |dir| Directory.new dir }
-      .each &:normalize
+    options.dirs.map { |dir| Directory.new dir }.each &:normalize
   end
 end

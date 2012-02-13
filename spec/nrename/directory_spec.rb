@@ -85,7 +85,7 @@ describe Nrename::Directory do
 
   describe '#normalize' do
     before do
-      Nrename.options.stub execute: true, verbose: false
+      Nrename.options.stub :execute => true, :verbose => false
     end
 
     it 'renames files so than they can be sorted properly' do
@@ -106,16 +106,16 @@ describe Nrename::Directory do
     it 'returns normalized name for file' do
       dir = Nrename::Directory.new test_dir
       file = Pathname.new(test_dir) + 'b1.txt'
-      dir.stub num_field_length: 4
+      dir.stub :num_field_length => 4
       new_name = dir.normalized_name_for(file).basename.to_s
       new_name.should be == 'b0001.txt'
     end
 
     it 'returns bare number if numbers_only options is provided' do
-      Nrename.options.stub numbers_only: true
+      Nrename.options.stub :numbers_only => true
       dir = Nrename::Directory.new test_dir
       file = Pathname.new(test_dir) + 'b1.txt'
-      dir.stub num_field_length: 4
+      dir.stub :num_field_length => 4
       new_name = dir.normalized_name_for(file).basename.to_s
       new_name.should be == '0001.txt'
     end
@@ -140,7 +140,7 @@ describe Nrename::Directory do
       end
 
       dir = Nrename::Directory.new test_dir
-      dir.stub num_field_length: 6
+      dir.stub :num_field_length => 6
       file = dir.numbered_files.first
       dir.adjusted_number_string_for(file).should be == '000032'
     end
