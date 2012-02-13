@@ -101,9 +101,8 @@ Feature: Renaming files
     | 23.txt |
     And the following files should not exist:
     | bb1.txt    |
-    | bb1o.txt   |
+    | bb10.txt   |
     | cc0023.txt |
-
 
   Scenario: Using custom regular expression
     Given a directory named "dir"
