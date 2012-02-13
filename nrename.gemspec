@@ -5,9 +5,9 @@ Gem::Specification.new do |s|
   s.version     = Nrename::VERSION
   s.authors     = ['Victor Deryagin']
   s.email       = ['vderyagin@gmail.com']
-  s.homepage    = ''
-  s.summary     = ''
-  s.description = ''
+  s.homepage    = 'https://github.com/vderyagin/nrename'
+  s.summary     = 'Command-line utility for renaming numbered files.'
+  s.description = 'Nrename lets you rename set of numbered files so that they can be sorted correctly in any shell or file manager.'
 
   s.rubyforge_project = 'nrename'
 
