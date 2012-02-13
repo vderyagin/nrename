@@ -19,6 +19,10 @@ Then(/^the following files should exist inside directory "([^"]*)":$/) do |direc
   end
 end
 
+Before do
+  @aruba_timeout_seconds = 10             # account for slow JVM startup
+end
+
 After do
   FileUtils.rm_rf File.expand_path('../../../tmp', __FILE__)
 end
