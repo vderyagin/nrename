@@ -1,5 +1,6 @@
 [![Build Status](https://secure.travis-ci.org/vderyagin/nrename.png)](http://travis-ci.org/vderyagin/nrename)
 [![Dependency Status](https://gemnasium.com/vderyagin/nrename.png)](https://gemnasium.com/vderyagin/nrename)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/vderyagin/nrename)
 
 # Nrename
 
