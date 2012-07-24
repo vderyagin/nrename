@@ -12,6 +12,14 @@ Command-line utility for renaming numbered files.
 gem install nrename
 ```
 
+## Compatibility ##
+
+* ruby-1.8.7
+* ruby-1.9.2
+* ruby-1.9.3
+* jruby (both 1.8 and 1.9 modes)
+* rubinius (both 1.8 and 1.9 modes)
+
 ## Description ##
 
 
