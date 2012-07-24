@@ -81,7 +81,7 @@ module Nrename
 
       if options.recursive
         options.dirs.dup.each do |dir|
-          Dir.glob "#{dir}/**/" do |subdir|
+          Dir.glob(File.join dir, '**/') do |subdir|
             options.dirs << subdir.chomp('/')
           end
         end
