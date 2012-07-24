@@ -20,18 +20,6 @@ Feature: Renaming files
     | 101.txt  |
     | 200.txt  |
 
-  Scenario: Renaming files in current directory
-    Given a directory named "dir"
-    And the following empty files inside directory "dir":
-    | 1.txt    |
-    | 10.txt   |
-    When I cd to "dir"
-    And I run `nrename -X`
-    Then the exit status should be 0
-    And the following files should exist:
-    | 01.txt   |
-    | 10.txt   |
-
   Scenario: Dry-run
     Given a directory named "dir"
     And the following empty files inside directory "dir":
@@ -77,7 +65,7 @@ Feature: Renaming files
     And the following empty files inside directory "bar":
     | 33.txt    |
     | 01234.txt |
-    And I run `nrename -XR`
+    And I run `nrename -XR .`
     Then the exit status should be 0
     And the following files should exist inside directory "foo":
     | 01.txt   |
@@ -93,7 +81,7 @@ Feature: Renaming files
     | bb10.txt   |
     | cc0023.txt |
     When I cd to "dir"
-    When I run `nrename -XN`
+    When I run `nrename -XN .`
     Then the exit status should be 0
     And the following files should exist:
     | 01.txt |
@@ -111,7 +99,7 @@ Feature: Renaming files
     | 003_10.txt   |
     | 003_0023.txt |
     When I cd to "dir"
-    When I run `nrename -X --regexp '^003_(\d+)\.txt'`
+    When I run `nrename -X --regexp '^003_(\d+)\.txt' .`
     Then the exit status should be 0
     And the following files should exist:
     | 003_01.txt |

@@ -49,8 +49,8 @@ describe Nrename::Options do
       end
     end
 
-    it 'captures current dir if no arguments provided' do
-      parse_options([]).dirs.should be == [File.expand_path('.')]
+    it 'empty if no arguments provided' do
+      parse_options([]).dirs.should be == []
     end
 
     it 'recursively captures all subdirs when -R option provided' do

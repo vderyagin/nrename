@@ -24,7 +24,7 @@ module Nrename
       end
 
       OptionParser.new do |opts|
-        opts.banner = "Usage: #{executable_name} [OPTINS] [DIR]..."
+        opts.banner = "Usage: #{executable_name} [OPTINS] DIR..."
 
         opts.separator ''
         opts.separator 'Options:'
@@ -77,10 +77,6 @@ module Nrename
           warn "#{dir} is not a valid directory."
           exit 1
         end
-      end
-
-      if options.dirs.empty?
-        options.dirs << File.expand_path('.')
       end
 
       if options.recursive
