@@ -16,8 +16,8 @@ module Nrename
       @options = nil
     end
 
-    def options
-      default_options = {
+    def default_options
+      {
         :numbers_only => false,
         :dirs         => [],
         :execute      => false,
@@ -25,7 +25,9 @@ module Nrename
         :recursive    => false,
         :verbose      => true
       }
+    end
 
+    def options
       @options ||= OpenStruct.new default_options
     end
 
