@@ -14,13 +14,13 @@ describe Nrename::Directory do
       end
 
       dir = Nrename::Directory.new test_dir
-      dir.should have(3).numbered_files
+      expect(dir).to have(3).numbered_files
     end
 
     it 'returns empty array when there is no num. files in dir' do
       mkdir test_dir
       dir = Nrename::Directory.new test_dir
-      dir.should have(:no).numbered_files
+      expect(dir).to have(:no).numbered_files
     end
 
     it 'does not care about non-numbered files' do
@@ -29,7 +29,7 @@ describe Nrename::Directory do
       end
 
       dir = Nrename::Directory.new test_dir
-      dir.should have(3).numbered_files
+      expect(dir).to have(3).numbered_files
     end
 
     it 'does not care about directories' do
@@ -39,7 +39,7 @@ describe Nrename::Directory do
       end
 
       dir = Nrename::Directory.new test_dir
-      dir.should have(3).numbered_files
+      expect(dir).to have(3).numbered_files
     end
   end
 
@@ -50,7 +50,7 @@ describe Nrename::Directory do
       end
 
       dir = Nrename::Directory.new test_dir
-      dir.num_field_length.should be == 4
+      expect(dir.num_field_length).to be == 4
     end
 
     it 'ignores starting zeros in number' do
@@ -59,7 +59,7 @@ describe Nrename::Directory do
       end
 
       dir = Nrename::Directory.new test_dir
-      dir.num_field_length.should be == 2
+      expect(dir.num_field_length).to be == 2
     end
   end
 
@@ -70,7 +70,7 @@ describe Nrename::Directory do
       end
 
       dir = Nrename::Directory.new test_dir
-      dir.max_number.should be == 3
+      expect(dir.max_number).to be == 3
     end
 
     it 'is not fooled by fancy file names' do
@@ -79,7 +79,7 @@ describe Nrename::Directory do
       end
 
       dir = Nrename::Directory.new test_dir
-      dir.max_number.should be == 98
+      expect(dir.max_number).to be == 98
     end
   end
 
@@ -98,7 +98,9 @@ describe Nrename::Directory do
 
       expected = %w[01 02 03 04 05 06 10 11]
       renamed_files = Dir.entries(test_dir)
-      expected.each { |file| renamed_files.should include file }
+      expected.each do |file|
+        expect(renamed_files).to include file
+      end
     end
   end
 
@@ -108,7 +110,7 @@ describe Nrename::Directory do
       file = Pathname.new(test_dir) + 'b1.txt'
       dir.stub :num_field_length => 4
       new_name = dir.normalized_name_for(file).basename.to_s
-      new_name.should be == 'b0001.txt'
+      expect(new_name).to be == 'b0001.txt'
     end
 
     it 'returns bare number if numbers_only options is provided' do
@@ -117,7 +119,7 @@ describe Nrename::Directory do
       file = Pathname.new(test_dir) + 'b1.txt'
       dir.stub :num_field_length => 4
       new_name = dir.normalized_name_for(file).basename.to_s
-      new_name.should be == '0001.txt'
+      expect(new_name).to be == '0001.txt'
     end
   end
 
@@ -129,7 +131,7 @@ describe Nrename::Directory do
 
       dir = Nrename::Directory.new test_dir
       file = dir.numbered_files.first
-      dir.number_for(file).should be == 23
+      expect(dir.number_for file).to be == 23
     end
   end
 
@@ -142,7 +144,7 @@ describe Nrename::Directory do
       dir = Nrename::Directory.new test_dir
       dir.stub :num_field_length => 6
       file = dir.numbered_files.first
-      dir.adjusted_number_string_for(file).should be == '000032'
+      expect(dir.adjusted_number_string_for file).to be == '000032'
     end
   end
 end
