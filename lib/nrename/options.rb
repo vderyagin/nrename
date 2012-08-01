@@ -1,9 +1,22 @@
 require 'optparse'
 require 'ostruct'
+require 'singleton'
+require 'forwardable'
 
 module Nrename
-  module Options
-    def self.parse(args)
+  class Options
+    include Singleton
+
+    class << self
+      extend Forwardable
+      def_delegator :instance, :parse
+    end
+
+    def reset
+      @options = nil
+    end
+
+    def options
       default_options = {
         :numbers_only => false,
         :dirs         => [],
@@ -13,18 +26,12 @@ module Nrename
         :verbose      => true
       }
 
-      options = OpenStruct.new default_options
+      @options ||= OpenStruct.new default_options
+    end
 
-      executable_name = File.basename $PROGRAM_NAME
-
-      # display help if called through 'nrename' executable
-      # and without arguments
-      if args.empty? && executable_name == 'nrename'
-        args << '--help'
-      end
-
+    def parser
       OptionParser.new do |opts|
-        opts.banner = "Usage: #{executable_name} [OPTINS] DIR..."
+        opts.banner = "Usage: #{Nrename.executable_name} [OPTINS] DIR..."
 
         opts.separator ''
         opts.separator 'Options:'
@@ -34,17 +41,17 @@ module Nrename
         end
 
         opts.on '-R', '--recursive',
-             'Process given directories recursively' do |rec|
+        'Process given directories recursively' do |rec|
           options.recursive = rec
         end
 
         opts.on '-N', '--numbers-only',
-             'Leave only numbers in file name' do |n|
+        'Leave only numbers in file name' do |n|
           options.numbers_only = n
         end
 
         opts.on '--regexp REGEXP', Regexp,
-             'Use REGEXP to match filenames' do |regexp|
+        'Use REGEXP to match filenames' do |regexp|
           options.pattern = regexp
         end
 
@@ -61,13 +68,28 @@ module Nrename
           puts VERSION
           exit
         end
-      end.parse!(args)
+      end
+    end
 
-      if !options.execute && executable_name == 'nrename'
+    def parse(args)
+      reset
+
+      # display help if called through 'nrename' executable
+      # and without arguments
+
+      if args.empty? && Nrename.executable_name == 'nrename'
+        args << '--help'
+      end
+
+
+      parser.parse! args
+
+      if !options.execute && Nrename.executable_name == 'nrename'
         at_exit do
           warn 'No renaming is done. Run with -X option to perform actual changes.'
         end
       end
+
 
       args.each do |arg|
         dir = File.expand_path arg
