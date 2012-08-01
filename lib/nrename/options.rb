@@ -31,6 +31,9 @@ module Nrename
       @options ||= OpenStruct.new default_options
     end
 
+    extend Forwardable
+    def_delegators :options, *instance.default_options.keys
+
     def parser
       OptionParser.new do |opts|
         opts.banner = "Usage: #{Nrename.executable_name} [OPTINS] DIR..."
@@ -76,13 +79,10 @@ module Nrename
     def parse(args)
       reset
 
-      # display help if called through 'nrename' executable
-      # and without arguments
-
+      # Display help if called through 'nrename' executable and without arguments:
       if args.empty? && Nrename.executable_name == 'nrename'
         args << '--help'
       end
-
 
       parser.parse! args
 
@@ -91,7 +91,6 @@ module Nrename
           warn 'No renaming is done. Run with -X option to perform actual changes.'
         end
       end
-
 
       args.each do |arg|
         dir = File.expand_path arg
@@ -113,7 +112,7 @@ module Nrename
 
       options.dirs.uniq!
 
-      options
+      self
     end
   end
 end
