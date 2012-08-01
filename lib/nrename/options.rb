@@ -92,8 +92,14 @@ module Nrename
         end
       end
 
-      args.each do |arg|
-        dir = File.expand_path arg
+      set_directories(args)
+
+      self
+    end
+
+    def set_directories(directories)
+      directories.each do |directory|
+        dir = File.expand_path directory
         if File.directory? dir
           options.dirs << dir
         else
@@ -111,8 +117,6 @@ module Nrename
       end
 
       options.dirs.uniq!
-
-      self
     end
   end
 end
