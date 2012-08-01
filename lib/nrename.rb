@@ -14,6 +14,11 @@ module Nrename
   def self.run(args=[])
     @options = Options.parse args
 
-    options.dirs.map { |dir| Directory.new dir }.each &:normalize
+    dirs = options.dirs.map { |dir| Directory.new dir }
+    if dirs.all? &:empty?
+      warn 'No matched files to rename.'
+    else
+      dirs.each &:normalize
+    end
   end
 end

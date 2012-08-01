@@ -1,8 +1,13 @@
 require 'pathname'
 require 'fileutils'
+require 'forwardable'
 
 module Nrename
   class Directory
+
+    extend Forwardable
+    def_delegator :numbered_files, :empty?
+
     def initialize(dir)
       @dir = Pathname.new dir
 
