@@ -6,6 +6,10 @@ require 'nrename/directory'
 require 'nrename/options'
 
 module Nrename
+  def self.executable_name
+    File.basename $PROGRAM_NAME
+  end
+
   def self.options
     # return default options if not alredy set by .run():
     @options ||= Options.parse []
