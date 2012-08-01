@@ -8,11 +8,6 @@ Feature: Options processing
     Then the exit status should be 0
     And the stdout should contain "Usage: nrename "
 
-  Scenario: Displaying help when run without options
-    When I run `nrename`
-    Then the exit status should be 0
-    And the stdout should contain "Usage: nrename "
-
   Scenario: Displaying help when run without any options
     When I run `nrename`
     Then the exit status should be 0
