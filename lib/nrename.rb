@@ -15,7 +15,7 @@ module Nrename
     @options ||= Options.parse []
   end
 
-  def self.run(args=[])
+  def self.run(args)
     @options = Options.parse args
 
     dirs = options.dirs.map { |dir| Directory.new dir }
