@@ -7,22 +7,22 @@ describe Nrename::Options do
 
   describe 'verbosity' do
     it 'is on by default (when no arguments provided)' do
-      expect(parse_options []).to be_verbose
+      expect(parse_options([]).verbose).to be_true
     end
 
     it 'is off when or "--no-verbose" switch is provided' do
-      expect(parse_options %w[--no-verbose]).not_to be_verbose
+      expect(parse_options(%w[--no-verbose]).verbose).to be_false
     end
   end
 
   describe 'recursive processing' do
     it 'is off by default' do
-      expect(parse_options []).not_to be_recursive
+      expect(parse_options([]).recursive).to be_false
     end
 
     it 'is on when "-R" of "--recursive" is provided' do
       %w[-R --recursive].each do |option|
-        expect(parse_options [option]).to be_recursive
+        expect(parse_options([option]).recursive).to be_true
       end
     end
   end
