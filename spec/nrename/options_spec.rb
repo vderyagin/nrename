@@ -1,28 +1,24 @@
 require 'spec_helper'
 
 describe Nrename::Options do
-  def parse_options(args)
-    Nrename::Options.parse args
-  end
-
   describe 'verbosity' do
     it 'is on by default (when no arguments provided)' do
-      expect(parse_options([]).verbose).to be_true
+      expect(Nrename.parse_options([]).verbose).to be_true
     end
 
     it 'is off when or "--no-verbose" switch is provided' do
-      expect(parse_options(%w[--no-verbose]).verbose).to be_false
+      expect(Nrename.parse_options(%w[--no-verbose]).verbose).to be_false
     end
   end
 
   describe 'recursive processing' do
     it 'is off by default' do
-      expect(parse_options([]).recursive).to be_false
+      expect(Nrename.parse_options([]).recursive).to be_false
     end
 
     it 'is on when "-R" of "--recursive" is provided' do
       %w[-R --recursive].each do |option|
-        expect(parse_options([option]).recursive).to be_true
+        expect(Nrename.parse_options([option]).recursive).to be_true
       end
     end
   end
@@ -45,16 +41,16 @@ describe Nrename::Options do
       subdirs.each do |subdir|
         subdir_path =  File.expand_path subdir, test_dir
         arg = File.join test_dir, subdir
-        expect(parse_options([arg]).dirs).to include subdir_path
+        expect(Nrename.parse_options([arg]).dirs).to include subdir_path
       end
     end
 
     it 'empty if no arguments provided' do
-      expect(parse_options([]).dirs).to be_empty
+      expect(Nrename.parse_options([]).dirs).to be_empty
     end
 
     it 'recursively captures all subdirs when -R option provided' do
-      dirs = parse_options(['-R', test_dir]).dirs
+      dirs = Nrename.parse_options(['-R', test_dir]).dirs
 
       expect(dirs).to include test_dir
 

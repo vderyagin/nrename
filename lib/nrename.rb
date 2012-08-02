@@ -11,12 +11,11 @@ module Nrename
     File.basename $PROGRAM_NAME
   end
 
-  def self.set_options_from(args)
-    @options = Options.parse args
+  def self.options
+    Options.instance
   end
 
-  # Return options if set by .set_options_from(args), otherwise return default ones
-  def self.options
-    @options ||= Options.parse []
+  def self.parse_options(args)
+    options.parse args
   end
 end

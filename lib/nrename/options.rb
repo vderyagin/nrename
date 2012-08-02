@@ -8,11 +8,6 @@ module Nrename
   class Options
     include Singleton
 
-    class << self
-      extend Forwardable
-      def_delegator :instance, :parse
-    end
-
     def default_options
       {
         :numbers_only => false,

@@ -1,7 +1,7 @@
 module Nrename
-  class Runner
+  module Runner
     def self.run(args)
-      Nrename.set_options_from args
+      Nrename.parse_options args
 
       dirs = Nrename.options.dirs.map { |dir| Directory.new dir }
       if dirs.all? &:empty?
