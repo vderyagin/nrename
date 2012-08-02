@@ -1,7 +1,8 @@
+require 'forwardable'
 require 'optparse'
 require 'ostruct'
+require 'set'
 require 'singleton'
-require 'forwardable'
 
 module Nrename
   class Options
@@ -19,7 +20,7 @@ module Nrename
     def default_options
       {
         :numbers_only => false,
-        :dirs         => [],
+        :dirs         => Set.new,
         :execute      => false,
         :pattern      => /(\d+)/,
         :recursive    => false,
@@ -92,16 +93,18 @@ module Nrename
         end
       end
 
-      set_directories(args)
+      options.dirs = extract_dirs args
 
       self
     end
 
-    def set_directories(directories)
-      directories.each do |directory|
-        dir = File.expand_path directory
+    def extract_dirs(args)
+      dirs = Set.new
+
+      args.each do |arg|
+        dir = File.expand_path arg
         if File.directory? dir
-          options.dirs << dir
+          dirs << dir
         else
           warn "#{dir} is not a valid directory."
           exit 1
@@ -109,14 +112,14 @@ module Nrename
       end
 
       if options.recursive
-        options.dirs.dup.each do |dir|
+        dirs.dup.each do |dir|
           Dir.glob(File.join dir, '**/') do |subdir|
-            options.dirs << subdir.chomp('/')
+            dirs << subdir.chomp('/')
           end
         end
       end
 
-      options.dirs.uniq!
+      dirs
     end
   end
 end
