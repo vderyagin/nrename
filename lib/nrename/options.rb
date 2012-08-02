@@ -13,10 +13,6 @@ module Nrename
       def_delegator :instance, :parse
     end
 
-    def reset
-      @options = nil
-    end
-
     def default_options
       {
         :numbers_only => false,
@@ -28,9 +24,7 @@ module Nrename
       }
     end
 
-    def options
-      @options ||= OpenStruct.new default_options
-    end
+    attr_reader :options
 
     extend Forwardable
     def_delegators :options, *instance.default_options.keys
@@ -78,7 +72,7 @@ module Nrename
     end
 
     def parse(args)
-      reset
+      @options = OpenStruct.new default_options
 
       # Display help if called through 'nrename' executable and without arguments:
       if args.empty? && Nrename.executable_name == 'nrename'
