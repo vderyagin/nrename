@@ -73,5 +73,4 @@ Options:
     -v, --[no-]verbose               Run verbosely
     -h, --help                       Display this message
         --version                    Display version
-
 ```
