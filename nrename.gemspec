@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     'lib/nrename.rb',
     'lib/nrename/directory.rb',
     'lib/nrename/options.rb',
+    'lib/nrename/runner.rb',
     'lib/nrename/version.rb',
     'spec/nrename/directory_spec.rb',
     'spec/nrename/options_spec.rb',
