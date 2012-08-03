@@ -9,9 +9,7 @@ module Nrename
 
     def_delegator :numbered_files, :empty?
 
-    def options
-      Nrename.options
-    end
+    def_delegator :Nrename, :options
 
     def_delegator :options, :execute, :execute?
     def_delegator :options, :numbers_only, :numbers_only?
