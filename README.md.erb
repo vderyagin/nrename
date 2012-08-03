@@ -14,11 +14,9 @@ gem install nrename
 
 ## Compatibility ##
 
-* ruby-1.8.7
-* ruby-1.9.2
-* ruby-1.9.3
-* jruby (both 1.8 and 1.9 modes)
-* rubinius (both 1.8 and 1.9 modes)
+This gem does not have any external runtime dependencies, nor does it use any
+fancy language features/syntax, so it works on pretty much every Ruby
+implementation out there.
 
 ## Description ##
 
