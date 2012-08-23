@@ -97,54 +97,9 @@ describe Nrename::Directory do
       dir.normalize
 
       expected = %w[01 02 03 04 05 06 10 11]
-      renamed_files = Dir.entries(test_dir)
-      expected.each do |file|
-        expect(renamed_files).to include file
-      end
-    end
-  end
+      renamed_files = Dir.entries(test_dir) - %w(. ..)
 
-  describe '#normalized_name_for' do
-    it 'returns normalized name for file' do
-      dir = Nrename::Directory.new test_dir
-      file = Pathname.new(test_dir) + 'b1.txt'
-      dir.stub :num_field_length => 4
-      new_name = dir.normalized_name_for(file).basename.to_s
-      expect(new_name).to be == 'b0001.txt'
-    end
-
-    it 'returns bare number if numbers_only options is provided' do
-      Nrename.options.stub :numbers_only => true
-      dir = Nrename::Directory.new test_dir
-      file = Pathname.new(test_dir) + 'b1.txt'
-      dir.stub :num_field_length => 4
-      new_name = dir.normalized_name_for(file).basename.to_s
-      expect(new_name).to be == '0001.txt'
-    end
-  end
-
-  describe '#number_for' do
-    it 'returns number for file' do
-      inside test_dir do
-        touch 'av023cd.txt'
-      end
-
-      dir = Nrename::Directory.new test_dir
-      file = dir.numbered_files.first
-      expect(dir.number_for file).to be == 23
-    end
-  end
-
-  describe '#adjusted_number_string_for' do
-    it 'returns number string adjusted to field length' do
-      inside test_dir do
-        touch 'qwe0032rty.gif'
-      end
-
-      dir = Nrename::Directory.new test_dir
-      dir.stub :num_field_length => 6
-      file = dir.numbered_files.first
-      expect(dir.adjusted_number_string_for file).to be == '000032'
+      expect(renamed_files).to match_array expected
     end
   end
 end

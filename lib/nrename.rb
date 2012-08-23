@@ -2,6 +2,7 @@ libdir = File.expand_path(File.dirname __FILE__)
 $:.push libdir unless $:.include? libdir
 
 require 'nrename/directory'
+require 'nrename/numbered_file'
 require 'nrename/options'
 require 'nrename/runner'
 require 'nrename/version'
