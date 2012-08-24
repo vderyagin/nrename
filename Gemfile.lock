@@ -26,9 +26,23 @@ GEM
       json (>= 1.4.6)
     gherkin (2.11.2-java)
       json (>= 1.4.6)
+    guard (1.3.2)
+      listen (>= 0.4.2)
+      thor (>= 0.14.6)
+    guard-rspec (1.2.1)
+      guard (>= 1.1)
     json (1.7.5)
     json (1.7.5-java)
+    listen (0.4.7)
+      rb-fchange (~> 0.0.5)
+      rb-fsevent (~> 0.9.1)
+      rb-inotify (~> 0.8.8)
     rake (0.9.2.2)
+    rb-fchange (0.0.5)
+      ffi
+    rb-fsevent (0.9.1)
+    rb-inotify (0.8.8)
+      ffi (>= 0.5.0)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -37,6 +51,7 @@ GEM
     rspec-expectations (2.11.2)
       diff-lcs (~> 1.1.3)
     rspec-mocks (2.11.2)
+    thor (0.16.0)
 
 PLATFORMS
   java
@@ -44,6 +59,7 @@ PLATFORMS
 
 DEPENDENCIES
   aruba (~> 0.4.11)
+  guard-rspec (~> 1.2.1)
   nrename!
   rake (~> 0.9.2)
   rspec (~> 2.11.0)
