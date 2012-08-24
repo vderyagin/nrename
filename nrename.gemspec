@@ -23,10 +23,12 @@ Gem::Specification.new do |s|
     'features/support/env.rb',
     'lib/nrename.rb',
     'lib/nrename/directory.rb',
+    'lib/nrename/numbered_file.rb',
     'lib/nrename/options.rb',
     'lib/nrename/runner.rb',
     'lib/nrename/version.rb',
     'spec/nrename/directory_spec.rb',
+    'spec/nrename/numbered_file_spec.rb',
     'spec/nrename/options_spec.rb',
     'spec/spec_helper.rb'
   ]
