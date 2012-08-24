@@ -13,6 +13,16 @@ module Nrename
       @dir = Pathname.new dir
     end
 
+    def directories
+      @dir.children.select &:directory?
+    end
+
+    def numbered_directories
+      directories.
+        select { |dir| dir.basename.to_s =~ options.pattern }.
+        map &(NumberedFile.method :new)
+    end
+
     def files
       @dir.children.reject &:directory?
     end
