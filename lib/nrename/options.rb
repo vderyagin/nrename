@@ -69,6 +69,8 @@ module Nrename
     end
 
     def parse(args)
+      @options = nil
+
       # Display help if called through 'nrename' executable and without arguments:
       if args.empty? && Nrename.executable_name == 'nrename'
         args << '--help'
