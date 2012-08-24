@@ -7,14 +7,42 @@ describe Nrename::Directory do
     rm_rf test_dir
   end
 
-  describe '#numbered_files' do
-    it 'correctly determines number of numbered files' do
+  describe '#files' do
+    it 'returns all files inside directory' do
+      files = %w[1.rb 2.rb 3.rb foo.rb bar baz.java]
+
       inside test_dir do
-        touch %w[1.rb 2.rb 3.rb]
+        touch files
       end
 
       dir = Nrename::Directory.new test_dir
-      expect(dir).to have(3).numbered_files
+      expect(dir).to have(files.length).files
+    end
+
+    it 'ignores directories' do
+      files = %w[1.rb 2.rb 3.rb foo.rb bar baz.java]
+      dirs = %w[1 2 03 40 55]
+
+      inside test_dir do
+        touch files
+        mkdir dirs
+      end
+
+      dir = Nrename::Directory.new test_dir
+      expect(dir).to have(files.length).files
+    end
+  end
+
+  describe '#numbered_files' do
+    it 'returns all numbered files' do
+      files = %w[1.rb 2.rb 3.rb]
+
+      inside test_dir do
+        touch files
+      end
+
+      dir = Nrename::Directory.new test_dir
+      expect(dir).to have(files.length).numbered_files
     end
 
     it 'returns empty array when there is no num. files in dir' do
@@ -24,22 +52,29 @@ describe Nrename::Directory do
     end
 
     it 'does not care about non-numbered files' do
+      numbered_files = %w[1.rb 2.rb 3.rb]
+      unnumbered_files = %w[foo.rb bar baz.java]
+
       inside test_dir do
-        touch %w[1.rb 2.rb 3.rb foo.rb bar baz.java]
+        touch numbered_files
+        touch unnumbered_files
       end
 
       dir = Nrename::Directory.new test_dir
-      expect(dir).to have(3).numbered_files
+      expect(dir).to have(numbered_files.length).numbered_files
     end
 
     it 'does not care about directories' do
+      files = %w[1.rb 2.rb 3.rb]
+      dirs = %w[1 2 03 40 55]
+
       inside test_dir do
-        touch %w[1.rb 2.rb 3.rb]
-        mkdir %w[1 2 03 40 55]
+        touch files
+        mkdir dirs
       end
 
       dir = Nrename::Directory.new test_dir
-      expect(dir).to have(3).numbered_files
+      expect(dir).to have(files.length).numbered_files
     end
   end
 
@@ -97,7 +132,8 @@ describe Nrename::Directory do
       dir.normalize
 
       expected = %w[01 02 03 04 05 06 10 11]
-      renamed_files = Dir.entries(test_dir) - %w(. ..)
+      renamed_files = Dir.entries(test_dir).
+        reject &(File.method :directory?)
 
       expect(renamed_files).to match_array expected
     end

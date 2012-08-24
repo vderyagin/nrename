@@ -7,16 +7,18 @@ module Nrename
     extend Forwardable
 
     def_delegator :numbered_files, :empty?
-
     def_delegator :Nrename, :options
 
     def initialize(dir)
       @dir = Pathname.new dir
     end
 
+    def files
+      @dir.children.reject &:directory?
+    end
+
     def numbered_files
-      @numbered_files ||= @dir.children.
-        reject(&:directory?).
+      @numbered_files ||= files.
         select { |file| file.basename.to_s =~ options.pattern }.
         map &(NumberedFile.method :new)
     end
