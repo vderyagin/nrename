@@ -17,18 +17,16 @@ module Nrename
       @dir.children.select &:directory?
     end
 
-    def numbered_directories
-      directories.
-        select { |dir| dir.basename.to_s =~ options.pattern }.
-        map &(NumberedFile.method :new)
-    end
-
     def regular_files
       @dir.children.select &:file?
     end
 
+    def files
+      options.rename_dirs ? directories : regular_files
+    end
+
     def numbered_files
-      @numbered_files ||= regular_files.
+      @numbered_files ||= files.
         select { |file| file.basename.to_s =~ options.pattern }.
         map &(NumberedFile.method :new)
     end

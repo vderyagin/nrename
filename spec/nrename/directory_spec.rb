@@ -7,6 +7,36 @@ describe Nrename::Directory do
     rm_rf test_dir
   end
 
+  describe '#files' do
+    let(:files) { %w[foo bar baz] }
+    let(:dirs) { %w[quux corge grault garply] }
+
+    before :each do
+      inside test_dir do
+        touch files
+        mkdir dirs
+      end
+    end
+
+    it 'returns regular files when option "rename_dirs" is false' do
+      Nrename.options.stub :rename_dirs => false
+
+      dir = Nrename::Directory.new test_dir
+      dir_files = dir.files.map { |file| file.basename.to_s }
+
+      expect(dir_files).to match_array files
+    end
+
+    it 'returns directories when option "rename_dirs" is true' do
+      Nrename.options.stub :rename_dirs => true
+
+      dir = Nrename::Directory.new test_dir
+      dir_files = dir.files.map { |file| file.basename.to_s }
+
+      expect(dir_files).to match_array dirs
+    end
+  end
+
   describe '#directories' do
     it 'returns list of directories in given directory' do
       dirs = %w[1 2 3 4 foo bar baz quux]
@@ -30,38 +60,6 @@ describe Nrename::Directory do
 
       dir = Nrename::Directory.new test_dir
       expect(dir).to have(dirs.length).directories
-    end
-  end
-
-  describe '#numbered_directories' do
-    it 'returs all numbered directories' do
-      dirs =  %w[1 2 3]
-
-      inside test_dir do
-        mkdir dirs
-      end
-
-      dir = Nrename::Directory.new test_dir
-      expect(dir).to have(dirs.length).numbered_directories
-    end
-
-    it 'returns empty collection when there is no numbered directories' do
-      mkdir test_dir
-      dir = Nrename::Directory.new test_dir
-      expect(dir).to have(:no).numbered_directories
-    end
-
-    it 'does not care about non-numbered directories' do
-      numbered_dirs = %w[1 2 3]
-      unnumbered_dirs = %w[foo bar baz quux]
-
-      inside test_dir do
-        mkdir numbered_dirs
-        mkdir unnumbered_dirs
-      end
-
-      dir = Nrename::Directory.new test_dir
-      expect(dir).to have(numbered_dirs.length).numbered_directories
     end
   end
 

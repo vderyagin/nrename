@@ -3,7 +3,7 @@ Feature: Renaming files
   As a user
   I want program to rename files correctly
 
-  Scenario: Renaming files in specified directory
+  Scenario: Renaming regular files in specified directory
     Given a directory named "dir"
     And the following empty files inside directory "dir":
     | 1.txt    |
@@ -19,6 +19,23 @@ Feature: Renaming files
     | 023.txt  |
     | 101.txt  |
     | 200.txt  |
+
+  Scenario: Renaming directories in specified directory
+    Given a directory named "dir"
+    And the following directories inside directory "dir":
+    | 1    |
+    | 10   |
+    | 0023 |
+    | 101  |
+    | 200  |
+    When I run `nrename -DX dir`
+    Then the exit status should be 0
+    And the following directories should exist inside directory "dir":
+    | 001 |
+    | 010 |
+    | 023 |
+    | 101 |
+    | 200 |
 
   Scenario: Dry-run
     Given a directory named "dir"

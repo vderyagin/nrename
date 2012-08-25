@@ -67,6 +67,7 @@ Options:
     -X, --execute                    Do actual work
     -R, --recursive                  Process given directories recursively
     -N, --numbers-only               Leave only numbers in file name
+    -D, --rename-dirs                Rename only directories instead of regular files
         --regexp REGEXP              Use REGEXP to match filenames
     -v, --[no-]verbose               Run verbosely
     -h, --help                       Display this message

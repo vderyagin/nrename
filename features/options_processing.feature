@@ -28,7 +28,7 @@ Feature: Options processing
     Then the exit status should be 1
     And the stderr should contain "no_dir is not a valid directory."
 
-  Scenario: Passing file instead of directory
+  Scenario: Passing regular file instead of directory
     Given an empty file named "foo"
     When I run `nrename foo`
     Then the exit status should be 1
