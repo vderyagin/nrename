@@ -23,12 +23,12 @@ module Nrename
         map &(NumberedFile.method :new)
     end
 
-    def files
-      @dir.children.reject &:directory?
+    def regular_files
+      @dir.children.select &:file?
     end
 
     def numbered_files
-      @numbered_files ||= files.
+      @numbered_files ||= regular_files.
         select { |file| file.basename.to_s =~ options.pattern }.
         map &(NumberedFile.method :new)
     end

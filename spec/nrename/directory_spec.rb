@@ -8,7 +8,7 @@ describe Nrename::Directory do
   end
 
   describe '#directories' do
-    it 'returns all directories inside directory' do
+    it 'returns list of directories in given directory' do
       dirs = %w[1 2 3 4 foo bar baz quux]
 
       inside test_dir do
@@ -19,7 +19,7 @@ describe Nrename::Directory do
       expect(dir).to have(dirs.length).directories
     end
 
-    it 'ignores files' do
+    it 'ignores regular files' do
       files = %w[1.rb 2.rb 3.rb foo.rb bar baz.java]
       dirs = %w[1 2 03 40 55]
 
@@ -45,13 +45,13 @@ describe Nrename::Directory do
       expect(dir).to have(dirs.length).numbered_directories
     end
 
-    it 'returns empty collection when there is no numbered directories in dir' do
+    it 'returns empty collection when there is no numbered directories' do
       mkdir test_dir
       dir = Nrename::Directory.new test_dir
       expect(dir).to have(:no).numbered_directories
     end
 
-    it 'does not care about non-numbered files' do
+    it 'does not care about non-numbered directories' do
       numbered_dirs = %w[1 2 3]
       unnumbered_dirs = %w[foo bar baz quux]
 
@@ -65,8 +65,8 @@ describe Nrename::Directory do
     end
   end
 
-  describe '#files' do
-    it 'returns all files inside directory' do
+  describe '#regular_files' do
+    it 'returns all regualr files in given directory' do
       files = %w[1.rb 2.rb 3.rb foo.rb bar baz.java]
 
       inside test_dir do
@@ -74,7 +74,7 @@ describe Nrename::Directory do
       end
 
       dir = Nrename::Directory.new test_dir
-      expect(dir).to have(files.length).files
+      expect(dir).to have(files.length).regular_files
     end
 
     it 'ignores directories' do
@@ -87,7 +87,7 @@ describe Nrename::Directory do
       end
 
       dir = Nrename::Directory.new test_dir
-      expect(dir).to have(files.length).files
+      expect(dir).to have(files.length).regular_files
     end
   end
 
@@ -177,6 +177,7 @@ describe Nrename::Directory do
       dir.normalize
 
       expected = %w[01 02 03 04 05 06 10 11]
+
       renamed_files = Dir.entries(test_dir).
         reject &(File.method :directory?)
 

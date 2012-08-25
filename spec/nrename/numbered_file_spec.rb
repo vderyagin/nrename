@@ -20,6 +20,13 @@ describe Nrename::NumberedFile do
       file = numbered_file '0001.txt'
       expect(file.number).to be == 1
     end
+
+    it 'handles different regular expressions' do
+      Nrename.options.stub :pattern => /^foo_0001_(\d+)\.txt$/
+
+      file = numbered_file 'foo_0001_0452.txt'
+      expect(file.number).to be == 452
+    end
   end
 
   describe '#normalized_path' do
@@ -31,11 +38,8 @@ describe Nrename::NumberedFile do
       it 'normalizes file name' do
         file = numbered_file 'abc_34.rb'
 
-        file.stub :number_length => 4
-        expect(file.normalized_path.to_s).to be == '0034.rb'
-
-        file.stub :number_length => 5
-        expect(file.normalized_path.to_s).to be == '00034.rb'
+        file.stub :number_length => 3
+        expect(file.normalized_path.to_s).to be == '034.rb'
       end
     end
 
@@ -46,9 +50,6 @@ describe Nrename::NumberedFile do
 
       it 'normalizes file name' do
         file = numbered_file 'abc_34.rb'
-
-        file.stub :number_length => 4
-        expect(file.normalized_path.to_s).to be == 'abc_0034.rb'
 
         file.stub :number_length => 5
         expect(file.normalized_path.to_s).to be == 'abc_00034.rb'
@@ -62,9 +63,6 @@ describe Nrename::NumberedFile do
 
       file.stub :number_length => 4
       expect(file.adjusted_number).to be == '0123'
-
-      file.stub :number_length => 6
-      expect(file.adjusted_number).to be == '000123'
     end
   end
 end
