@@ -1,25 +1,95 @@
 require 'spec_helper'
+require 'forwardable'
 
 describe Nrename::Options do
+  extend Forwardable
+
+  def_delegator :Nrename, :parse_options
+
+  let(:default_options) { parse_options([]) }
+
   describe 'verbosity' do
-    it 'is on by default (when no arguments provided)' do
-      expect(Nrename.parse_options([]).verbose).to be_true
+    it 'is on by default' do
+      expect(default_options.verbose).to be_true
     end
 
-    it 'is off when or "--no-verbose" switch is provided' do
-      expect(Nrename.parse_options(%w[--no-verbose]).verbose).to be_false
+    it 'is on when "-v" switch is provided' do
+      expect(parse_options(%w[-v]).verbose).to be_true
+    end
+
+    it 'is on when "--verbose" switch is provided' do
+      expect(parse_options(%w[--verbose]).verbose).to be_true
+    end
+
+    it 'is off when "--no-verbose" switch is provided' do
+      expect(parse_options(%w[--no-verbose]).verbose).to be_false
     end
   end
 
   describe 'recursive processing' do
     it 'is off by default' do
-      expect(Nrename.parse_options([]).recursive).to be_false
+      expect(default_options.recursive).to be_false
     end
 
-    it 'is on when "-R" of "--recursive" is provided' do
-      %w[-R --recursive].each do |option|
-        expect(Nrename.parse_options([option]).recursive).to be_true
-      end
+    it 'is on when "-R" switch is provided' do
+      expect(parse_options(%w[-R]).recursive).to be_true
+    end
+
+    it 'is on when "--recursive" switch is provided' do
+      expect(parse_options(%w[--recursive]).recursive).to be_true
+    end
+  end
+
+  describe 'perform actual renaming' do
+    it 'is off by default' do
+      expect(default_options.execute).to be_false
+    end
+
+    it 'is on when "-X" switch is provided' do
+      expect(parse_options(%w[-X]).execute).to be_true
+    end
+
+    it 'is on when "--execute" switch is provided' do
+      expect(parse_options(%w[--execute]).execute).to be_true
+    end
+  end
+
+  describe 'regular expression' do
+    it 'has a default value' do
+      expect(default_options.pattern).to be == /(\d+)/
+    end
+
+    it 'can be provided with "--regexp" switch' do
+      regexp = parse_options(%w[--regexp _(\d+)_]).pattern
+      expect(regexp).to be == /_(\d+)_/
+    end
+  end
+
+  describe 'leaving numbers only' do
+    it 'is off by default' do
+      expect(default_options.numbers_only).to be_false
+    end
+
+    it 'is on when "-N" switch is provided' do
+      expect(parse_options(%w[-N]).numbers_only).to be_true
+    end
+
+    it 'is on when "--numbers-only" switch is provided' do
+      expect(parse_options(%w[--numbers-only]).numbers_only).to be_true
+    end
+  end
+
+  describe 'renaming of directories' do
+    it 'is off by default' do
+      expect(default_options.rename_dirs).to be_false
+    end
+
+    it 'is on when "-D" switch is provided' do
+      expect(parse_options(%w[-D]).rename_dirs).to be_true
+    end
+
+    it 'is on when "--rename-dirs" switch is provided' do
+      expect(parse_options(%w[--rename-dirs]).rename_dirs).to be_true
     end
   end
 
@@ -41,16 +111,16 @@ describe Nrename::Options do
       subdirs.each do |subdir|
         subdir_path =  File.expand_path subdir, test_dir
         arg = File.join test_dir, subdir
-        expect(Nrename.parse_options([arg]).dirs).to include subdir_path
+        expect(parse_options([arg]).dirs).to include subdir_path
       end
     end
 
     it 'empty if no arguments provided' do
-      expect(Nrename.parse_options([]).dirs).to be_empty
+      expect(default_options.dirs).to be_empty
     end
 
     it 'recursively captures all subdirs when -R option provided' do
-      dirs = Nrename.parse_options(['-R', test_dir]).dirs
+      dirs = parse_options(['-R', test_dir]).dirs
 
       expect(dirs).to include test_dir
 

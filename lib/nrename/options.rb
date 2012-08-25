@@ -15,6 +15,7 @@ module Nrename
         :execute      => false,
         :pattern      => /(\d+)/,
         :recursive    => false,
+        :rename_dirs  => false,
         :verbose      => true
       }
     end
@@ -45,6 +46,11 @@ module Nrename
         opts.on '-N', '--numbers-only',
         'Leave only numbers in file name' do |n|
           options.numbers_only = n
+        end
+
+        opts.on '-D', '--rename-dirs',
+        'Rename only directories instead of regular files' do |d|
+          options.rename_dirs = d
         end
 
         opts.on '--regexp REGEXP', Regexp,
