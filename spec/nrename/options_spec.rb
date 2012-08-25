@@ -6,11 +6,15 @@ describe Nrename::Options do
 
   def_delegator :Nrename, :parse_options
 
-  let(:default_options) { parse_options([]) }
+  after :each do
+    Nrename.options.reset                 # do not leak state
+  end
+
+  let(:defaults) { parse_options([]) }
 
   describe 'verbosity' do
     it 'is on by default' do
-      expect(default_options.verbose).to be_true
+      expect(defaults.verbose).to be_true
     end
 
     it 'is on when "-v" switch is provided' do
@@ -28,7 +32,7 @@ describe Nrename::Options do
 
   describe 'recursive processing' do
     it 'is off by default' do
-      expect(default_options.recursive).to be_false
+      expect(defaults.recursive).to be_false
     end
 
     it 'is on when "-R" switch is provided' do
@@ -42,7 +46,7 @@ describe Nrename::Options do
 
   describe 'perform actual renaming' do
     it 'is off by default' do
-      expect(default_options.execute).to be_false
+      expect(defaults.execute).to be_false
     end
 
     it 'is on when "-X" switch is provided' do
@@ -56,7 +60,7 @@ describe Nrename::Options do
 
   describe 'regular expression' do
     it 'has a default value' do
-      expect(default_options.pattern).to be == /(\d+)/
+      expect(defaults.pattern).to be == /(\d+)/
     end
 
     it 'can be provided with "--regexp" switch' do
@@ -67,7 +71,7 @@ describe Nrename::Options do
 
   describe 'leaving numbers only' do
     it 'is off by default' do
-      expect(default_options.numbers_only).to be_false
+      expect(defaults.numbers_only).to be_false
     end
 
     it 'is on when "-N" switch is provided' do
@@ -81,7 +85,7 @@ describe Nrename::Options do
 
   describe 'renaming of directories' do
     it 'is off by default' do
-      expect(default_options.rename_dirs).to be_false
+      expect(defaults.rename_dirs).to be_false
     end
 
     it 'is on when "-D" switch is provided' do
@@ -116,7 +120,7 @@ describe Nrename::Options do
     end
 
     it 'empty if no arguments provided' do
-      expect(default_options.dirs).to be_empty
+      expect(defaults.dirs).to be_empty
     end
 
     it 'recursively captures all subdirs when -R option provided' do

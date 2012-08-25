@@ -27,6 +27,10 @@ module Nrename
       @options ||= OpenStruct.new default_options
     end
 
+    def reset
+      @options = nil
+    end
+
     def parser
       OptionParser.new do |opts|
         opts.banner = "Usage: #{Nrename.executable_name} [OPTINS] DIR..."
@@ -75,8 +79,6 @@ module Nrename
     end
 
     def parse(args)
-      @options = nil
-
       # Display help if called through 'nrename' executable and without arguments:
       if args.empty? && Nrename.executable_name == 'nrename'
         args << '--help'
