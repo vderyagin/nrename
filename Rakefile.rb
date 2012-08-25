@@ -11,7 +11,7 @@ Cucumber::Rake::Task.new
 task :default => [:spec, :cucumber]
 
 desc 'Generate README.md'
-file 'README.md' => 'README.md.erb' do
+file 'README.md' => ['README.md.erb', 'lib/nrename/options.rb'] do
   require 'erb'
 
   result = ERB.new(File.read './README.md.erb').result
