@@ -68,6 +68,7 @@ Options:
     -R, --recursive                  Process given directories recursively
     -N, --numbers-only               Leave only numbers in file name
     -D, --rename-dirs                Rename only directories instead of regular files
+        --renumber                   Renumber files from starting from 1 and on
         --regexp REGEXP              Use REGEXP to match filenames
     -v, --[no-]verbose               Run verbosely
     -h, --help                       Display this message
