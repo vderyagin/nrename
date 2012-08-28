@@ -14,11 +14,11 @@ Feature: Renaming files
     When I run `nrename -X dir`
     Then the exit status should be 0
     And the following files should exist inside directory "dir":
-    | 001.txt  |
-    | 010.txt  |
-    | 023.txt  |
-    | 101.txt  |
-    | 200.txt  |
+    | 001.txt |
+    | 010.txt |
+    | 023.txt |
+    | 101.txt |
+    | 200.txt |
 
   Scenario: Renaming directories in specified directory
     Given a directory named "dir"
@@ -52,23 +52,23 @@ Feature: Renaming files
     | 10.txt   |
     | 0023.txt |
     And the following files should not exist:
-    | 01.txt   |
-    | 23.txt   |
+    | 01.txt |
+    | 23.txt |
 
   Scenario: Renaming files in multiple directories
     Given a directory named "foo"
     And a directory named "bar"
     And the following empty files inside directory "foo":
-    | 1.txt    |
-    | 010.txt  |
+    | 1.txt   |
+    | 010.txt |
     And the following empty files inside directory "bar":
     | 33.txt    |
     | 01234.txt |
     And I run `nrename -X foo bar`
     Then the exit status should be 0
     And the following files should exist inside directory "foo":
-    | 01.txt   |
-    | 10.txt   |
+    | 01.txt |
+    | 10.txt |
     And the following files should exist inside directory "bar":
     | 0033.txt |
     | 1234.txt |
@@ -77,16 +77,16 @@ Feature: Renaming files
     Given a directory named "foo"
     And a directory named "bar"
     And the following empty files inside directory "foo":
-    | 1.txt    |
-    | 010.txt  |
+    | 1.txt   |
+    | 010.txt |
     And the following empty files inside directory "bar":
     | 33.txt    |
     | 01234.txt |
     And I run `nrename -XR .`
     Then the exit status should be 0
     And the following files should exist inside directory "foo":
-    | 01.txt   |
-    | 10.txt   |
+    | 01.txt |
+    | 10.txt |
     And the following files should exist inside directory "bar":
     | 0033.txt |
     | 1234.txt |
@@ -134,8 +134,8 @@ Feature: Renaming files
     When I run `nrename -X --renumber dir`
     Then the exit status should be 0
     And the following files should exist inside directory "dir":
-    | 1.txt    |
-    | 2.txt    |
-    | 3.txt    |
-    | 4.txt    |
-    | 5.txt    |
+    | 1.txt |
+    | 2.txt |
+    | 3.txt |
+    | 4.txt |
+    | 5.txt |
