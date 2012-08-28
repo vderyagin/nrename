@@ -5,9 +5,12 @@ require 'cucumber/rake/task'
 
 CLOBBER.include 'pkg'
 
-Cucumber::Rake::Task.new
 RSpec::Core::RakeTask.new do |task|
   task.verbose = false
+end
+
+Cucumber::Rake::Task.new do |task|
+  task.cucumber_opts = %w[--format progress]
 end
 
 task :default => [:spec, :cucumber]
