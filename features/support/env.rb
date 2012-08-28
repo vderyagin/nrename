@@ -3,38 +3,14 @@ require 'fileutils'
 
 ENV['PATH'] = "#{File.expand_path __FILE__, '../../../bin'}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
 
-Given(/^the following empty files inside directory "([^"]*)":$/) do |directory, files|
-  files.raw.each do |file_row|
-    write_file "#{directory}/#{file_row[0]}", ''
-  end
-end
+application_root = File.expand_path('../../..', __FILE__)
 
-Given(/^the following directories inside directory "([^"]*)":$/) do |directory, dirs|
-  dirs.raw.each do |dir_row|
-    create_dir "#{directory}/#{dir_row[0]}"
-  end
-end
-
-Then(/^the following files should exist inside directory "([^"]*)":$/) do |directory, files|
-  files.raw.each do |file_row|
-    check_file_presence ["#{directory}/#{file_row[0]}"], true
-  end
-end
-
-Then(/^the following directories should exist inside directory "([^"]*)":$/) do |directory, dirs|
-  dirs.raw.each do |dir_row|
-    check_directory_presence ["#{directory}/#{dir_row[0]}"], true
-  end
-end
-
-Then(/^the stdout should match \/([^\/]*)\/$/) do |expected|
-  assert_matching_output expected, all_stdout
-end
-
+# Account for slow JVM startup.
 Before do
-  @aruba_timeout_seconds = 10             # account for slow JVM startup
+  @aruba_timeout_seconds = 10
 end
 
+# Remove aruba's temporary directory after each scenario.
 After do
-  FileUtils.rm_rf File.expand_path('../../../tmp', __FILE__)
+  FileUtils.rm_rf File.expand_path 'tmp', application_root
 end
