@@ -4,7 +4,7 @@ require 'forwardable'
 
 module Nrename
   class NumberedFile
-    attr_reader :path, :number_length
+    attr_reader :path, :number_length, :override_number
 
     extend Forwardable
 
@@ -15,15 +15,20 @@ module Nrename
     end
 
     def number
-      path.basename.to_s[options.pattern, 1].to_i
+      override_number || path.basename.to_s[options.pattern, 1].to_i
     end
 
-    def normalize(length)
+    def normalize(length, override_number = nil)
       @number_length = length
-      new_name = normalized_path
-      return if path == new_name
+      @override_number = override_number
 
-      FileUtils.mv path, new_name, {
+      rename path, normalized_path
+    end
+
+    def rename(old, new)
+      return if old == new
+
+      FileUtils.mv old, new, {
         :noop    => !options.execute,
         :verbose => options.verbose
       }

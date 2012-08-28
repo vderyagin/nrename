@@ -28,7 +28,8 @@ module Nrename
     def numbered_files
       @numbered_files ||= files.
         select { |file| file.basename.to_s =~ options.pattern }.
-        map &(NumberedFile.method :new)
+        map { |file| NumberedFile.new file }.
+        sort_by(&:number)
     end
 
     def num_field_length
@@ -36,13 +37,27 @@ module Nrename
     end
 
     def max_number
-      numbered_files.map(&:number).max
+      if options.renumber
+        numbered_files.size
+      else
+        numbered_files.map(&:number).max
+      end
     end
 
-    def normalize
+    def renumber
+      numbered_files.each.with_index(1) do |file, idx|
+        file.normalize num_field_length, idx
+      end
+    end
+
+    def fix_numbers
       numbered_files.each do |file|
         file.normalize num_field_length
       end
+    end
+
+    def normalize
+      options.renumber ? renumber : fix_numbers
     end
   end
 end
