@@ -45,7 +45,12 @@ module Nrename
     end
 
     def renumber
-      numbered_files.each.with_index(1) do |file, idx|
+      numbered_files.each_with_index do |file, idx|
+
+        # Force 1-based indexing (could use Enumerator#with_index with
+        # argument, but that would be incompatible with ruby-1.8).
+        idx += 1
+
         file.normalize num_field_length, idx
       end
     end
