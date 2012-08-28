@@ -16,6 +16,7 @@ module Nrename
         :pattern      => /(\d+)/,
         :recursive    => false,
         :rename_dirs  => false,
+        :renumber     => false,
         :verbose      => true
       }
     end
@@ -55,6 +56,11 @@ module Nrename
         opts.on '-D', '--rename-dirs',
         'Rename only directories instead of regular files' do |d|
           options.rename_dirs = d
+        end
+
+        opts.on '--renumber',
+        'Renumber files from starting from 1 and on' do |renum|
+          options.renumber = renum
         end
 
         opts.on '--regexp REGEXP', Regexp,

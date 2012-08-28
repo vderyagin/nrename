@@ -97,6 +97,16 @@ describe Nrename::Options do
     end
   end
 
+  describe 'renumbering files from scratch' do
+    it 'is off by default' do
+      expect(defaults.renumber).to be_false
+    end
+
+    it 'is on when "--renumber" switch is provided' do
+      expect(parse_options(%w[--renumber]).renumber).to be_true
+    end
+  end
+
   describe 'directory arguments' do
     let(:test_dir) { File.expand_path 'test_dir' }
     let(:subdirs) { %w[aa bb cc] }
