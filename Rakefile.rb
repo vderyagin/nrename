@@ -5,8 +5,10 @@ require 'cucumber/rake/task'
 
 CLOBBER.include 'pkg'
 
-RSpec::Core::RakeTask.new
 Cucumber::Rake::Task.new
+RSpec::Core::RakeTask.new do |task|
+  task.verbose = false
+end
 
 task :default => [:spec, :cucumber]
 
