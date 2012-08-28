@@ -7,7 +7,7 @@ module Nrename
     extend Forwardable
 
     def_delegator :numbered_files, :empty?
-    def_delegator :Nrename, :options
+    def_delegator Nrename, :options
 
     def initialize(dir)
       @dir = Pathname.new dir

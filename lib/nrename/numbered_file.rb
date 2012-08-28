@@ -8,7 +8,7 @@ module Nrename
 
     extend Forwardable
 
-    def_delegator :Nrename, :options
+    def_delegator Nrename, :options
 
     def initialize(path)
       @path = path

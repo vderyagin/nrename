@@ -4,7 +4,7 @@ require 'forwardable'
 describe Nrename::Options do
   extend Forwardable
 
-  def_delegator :Nrename, :parse_options
+  def_delegator Nrename, :parse_options
 
   after :each do
     Nrename.options.reset                 # do not leak state
