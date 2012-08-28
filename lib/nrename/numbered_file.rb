@@ -22,13 +22,13 @@ module Nrename
       @number_length = length
       @override_number = override_number
 
-      rename path, normalized_path
+      rename_to normalized_path
     end
 
-    def rename(old, new)
-      return if old == new
+    def rename_to(new_name)
+      return if path == new_name
 
-      FileUtils.mv old, new, {
+      FileUtils.mv path, new_name, {
         :noop    => !options.execute,
         :verbose => options.verbose
       }
