@@ -139,3 +139,20 @@ Feature: Renaming files
     | 3.txt |
     | 4.txt |
     | 5.txt |
+
+  Scenario: Renaming files from scratch in right order
+    Given a directory named "dir"
+    And the following files with content inside directory "dir":
+    | 1.txt    | first  |
+    | 10.txt   | second |
+    | 0023.txt | third  |
+    | 101.txt  | fourth |
+    | 200.txt  | fifth  |
+    When I run `nrename -X --renumber dir`
+    Then the exit status should be 0
+    And the following files with content should exist inside directory "dir":
+    | 1.txt | first  |
+    | 2.txt | second |
+    | 3.txt | third  |
+    | 4.txt | fourth |
+    | 5.txt | fifth  |
