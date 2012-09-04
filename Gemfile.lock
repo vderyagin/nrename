@@ -62,4 +62,5 @@ DEPENDENCIES
   guard-rspec (~> 1.2.1)
   nrename!
   rake (~> 0.9.2)
+  rb-inotify (~> 0.8.8)
   rspec (~> 2.11.0)
