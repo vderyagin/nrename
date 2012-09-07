@@ -119,7 +119,11 @@ module Nrename
 
       if options.recursive
         dirs.dup.each do |dir|
-          Dir.glob(File.join dir.shellescape, '**/') do |subdir|
+          # Workaround: every other engine except jruby does not
+          # work with unescaped path:
+          dir = dir.shellescape unless RUBY_ENGINE == 'jruby'
+
+          Dir.glob(File.join dir, '**/') do |subdir|
             dirs << subdir.chomp('/')
           end
         end
