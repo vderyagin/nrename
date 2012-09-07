@@ -119,16 +119,7 @@ module Nrename
 
       if options.recursive
         dirs.dup.each do |dir|
-          # Workaround: every other engine except jruby does not
-          # work with unescaped path, also mri-1.8 does not have
-          # constant RUBY_ENGINE defined.
-          unless defined? RUBY_ENGINE and RUBY_ENGINE == 'jruby'
-            dir = dir.shellescape
-          end
-
-          Dir.glob(File.join dir, '**/') do |subdir|
-            dirs << subdir.chomp('/')
-          end
+          dirs.merge Utils.all_subdirs_of dir
         end
       end
 
