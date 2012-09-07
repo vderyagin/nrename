@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    nrename (0.2.3)
+    nrename (0.2.5)
 
 GEM
   remote: http://rubygems.org/
