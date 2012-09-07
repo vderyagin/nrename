@@ -5,6 +5,7 @@ require 'nrename/directory'
 require 'nrename/numbered_file'
 require 'nrename/options'
 require 'nrename/runner'
+require 'nrename/utils'
 require 'nrename/version'
 
 module Nrename
