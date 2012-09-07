@@ -108,8 +108,8 @@ describe Nrename::Options do
   end
 
   describe 'directory arguments' do
-    let(:test_dir) { File.expand_path 'test_dir' }
-    let(:subdirs) { %w[aa bb cc] }
+    let(:test_dir) { File.expand_path 'test ][ directory' }
+    let(:subdirs) {  ['aa', 'bb', 'cc' 'foo bar [baz] (quux)'] }
 
     before :all do
       inside test_dir do

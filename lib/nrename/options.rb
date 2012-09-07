@@ -2,6 +2,7 @@ require 'forwardable'
 require 'optparse'
 require 'ostruct'
 require 'set'
+require 'shellwords'
 require 'singleton'
 
 module Nrename
@@ -118,7 +119,7 @@ module Nrename
 
       if options.recursive
         dirs.dup.each do |dir|
-          Dir.glob(File.join dir, '**/') do |subdir|
+          Dir.glob(File.join dir.shellescape, '**/') do |subdir|
             dirs << subdir.chomp('/')
           end
         end
