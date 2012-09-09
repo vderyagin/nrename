@@ -34,11 +34,7 @@ describe Nrename::Utils do
 
     it 'captures deeply nested directories' do
       inside test_dir do
-        inside 'deeper' do
-          inside 'even_deeper' do
-            mkdir 'deepest'
-          end
-        end
+        mkdir_p 'deeper/even_deeper/deepest'
       end
 
       all_subdirs = [
