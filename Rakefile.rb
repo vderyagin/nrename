@@ -1,16 +1,14 @@
 require 'rake/clean'
 require "bundler/gem_tasks"
-require 'rspec/core/rake_task'
-require 'cucumber/rake/task'
 
 CLOBBER.include 'pkg'
 
-RSpec::Core::RakeTask.new do |task|
-  task.verbose = false
+task :spec do
+  sh 'rspec'
 end
 
-Cucumber::Rake::Task.new do |task|
-  task.cucumber_opts = %w[--format progress]
+task :cucumber do
+  sh 'cucumber', '--format', 'progress'
 end
 
 task :default => [:spec, :cucumber]
