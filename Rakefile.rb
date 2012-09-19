@@ -3,10 +3,12 @@ require "bundler/gem_tasks"
 
 CLOBBER.include 'pkg'
 
+desc 'Run all Rspec specs.'
 task :spec do
   sh 'rspec'
 end
 
+desc 'Run all Cucumber features.'
 task :cucumber do
   sh 'cucumber', '--format', 'progress'
 end
