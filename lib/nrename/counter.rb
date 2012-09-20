@@ -1,20 +1,11 @@
-require 'forwardable'
-
 module Nrename
   class Counter
-    extend Forwardable
-
-    def_delegator :@counter, :next
-
     def initialize
-      @counter = Enumerator.new do |yielder|
-        idx = 1
+      @counter = 0
+    end
 
-        loop do
-          yielder << idx
-          idx += 1
-        end
-      end
+    def next
+      @counter = @counter.next
     end
   end
 end
