@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
     'features/renaming_files.feature',
     'features/support/env.rb',
     'lib/nrename.rb',
+    'lib/nrename/counter.rb',
     'lib/nrename/directory.rb',
     'lib/nrename/numbered_file.rb',
     'lib/nrename/options.rb',
