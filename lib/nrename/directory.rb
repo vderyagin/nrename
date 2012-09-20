@@ -9,8 +9,11 @@ module Nrename
     def_delegator :numbered_files, :empty?
     def_delegator Nrename, :options
 
+    attr_reader :counter
+
     def initialize(dir)
       @dir = Pathname.new dir
+      @counter = Counter.new
     end
 
     def directories
@@ -28,8 +31,8 @@ module Nrename
     def numbered_files
       @numbered_files ||= files.
         select { |file| file.basename.to_s =~ options.pattern }.
-        map { |file| NumberedFile.new file }.
-        sort_by(&:number)
+        map { |file| NumberedFile.new file, self }.
+        sort_by(&:number_from_path)
     end
 
     def num_field_length
@@ -40,29 +43,14 @@ module Nrename
       if options.renumber
         numbered_files.size
       else
-        numbered_files.map(&:number).max
-      end
-    end
-
-    def renumber
-      numbered_files.each_with_index do |file, idx|
-
-        # Force 1-based indexing (could use Enumerator#with_index with
-        # argument, but that would be incompatible with ruby-1.8).
-        idx += 1
-
-        file.normalize num_field_length, idx
-      end
-    end
-
-    def fix_numbers
-      numbered_files.each do |file|
-        file.normalize num_field_length
+        numbered_files.map(&:number_from_path).max
       end
     end
 
     def normalize
-      options.renumber ? renumber : fix_numbers
+      numbered_files.each do |file|
+        file.normalize
+      end
     end
   end
 end

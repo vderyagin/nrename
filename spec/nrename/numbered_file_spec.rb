@@ -2,7 +2,9 @@ require 'spec_helper'
 
 describe Nrename::NumberedFile do
   def numbered_file(path)
-    Nrename::NumberedFile.new Pathname.new path
+    file = Pathname.new path
+    dir = Nrename::Directory.new file.dirname
+    Nrename::NumberedFile.new file, dir
   end
 
   describe '#number' do
@@ -38,7 +40,7 @@ describe Nrename::NumberedFile do
       it 'normalizes file name' do
         file = numbered_file 'abc_34.rb'
 
-        file.stub :number_length => 3
+        file.stub :num_field_length => 3
         expect(file.normalized_path.to_s).to be == '034.rb'
       end
     end
@@ -51,17 +53,17 @@ describe Nrename::NumberedFile do
       it 'normalizes file name' do
         file = numbered_file 'abc_34.rb'
 
-        file.stub :number_length => 5
+        file.stub :num_field_length => 5
         expect(file.normalized_path.to_s).to be == 'abc_00034.rb'
       end
     end
   end
 
   describe '#adjusted_number' do
-    it 'returns number, adjusted accordingly to #number_length' do
+    it 'returns number, adjusted accordingly to #num_field_length' do
       file = numbered_file 'foo123bar'
 
-      file.stub :number_length => 4
+      file.stub :num_field_length => 4
       expect(file.adjusted_number).to be == '0123'
     end
   end
