@@ -16,7 +16,12 @@ module Nrename
 
     def each_subdir(dir, &block)
       dir = Pathname.new dir
-      dir.children.select(&:directory?).map(&:to_s).each &block
+
+      subdirs = dir.children.select &:directory?
+
+      subdirs.each do |subdir|
+        block.call subdir.to_s
+      end
     end
     module_function :each_subdir
   end
