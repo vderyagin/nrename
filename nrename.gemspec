@@ -40,8 +40,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
 
   s.add_development_dependency 'aruba',       '~> 0.4.11'
-  s.add_development_dependency 'guard-rspec', '~> 1.2.1'
+  s.add_development_dependency 'guard-rspec', '~> 2.0.0'
   s.add_development_dependency 'rake',        '~> 0.9.2'
   s.add_development_dependency 'rb-inotify',  '~> 0.8.8'
-  s.add_development_dependency 'rspec',       '~> 2.11.0'
 end
