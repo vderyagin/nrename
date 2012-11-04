@@ -1,7 +1,5 @@
-require 'rspec'
 require 'fileutils'
-
-require File.expand_path '../../lib/nrename', __FILE__
+require 'nrename'
 
 module Support
   def inside(dir, &block)
