@@ -6,7 +6,14 @@ require 'shellwords'
 
 module Nrename
   class Options
-    DEFAULT_OPTIONS = {
+    extend Forwardable
+
+    def initialize
+      self.class.def_delegators :options, *default_options.keys
+    end
+
+    def default_options
+      {
       :numbers_only => false,
       :dirs         => Set.new,
       :execute      => false,
@@ -15,13 +22,15 @@ module Nrename
       :rename_dirs  => false,
       :renumber     => false,
       :verbose      => true
-    }
-
-    extend Forwardable
-    def_delegators :options, *DEFAULT_OPTIONS.keys
+      }
+    end
 
     def options
-      @options ||= OpenStruct.new DEFAULT_OPTIONS
+      @options ||= OpenStruct.new default_options
+    end
+
+    def reset
+      @options = nil
     end
 
     def parser

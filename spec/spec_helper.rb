@@ -12,6 +12,8 @@ RSpec.configure do |config|
   config.include FileUtils
   config.include Support
 
+  config.order = 'random'
+
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end

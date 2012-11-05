@@ -8,6 +8,10 @@ describe Nrename::Options do
 
   let(:defaults) { parse_options([]) }
 
+  after :each do
+    Nrename.options.reset                 # do not leak state
+  end
+
   describe 'verbosity' do
     it 'is on by default' do
       expect(defaults.verbose).to be_true
