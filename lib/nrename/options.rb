@@ -3,34 +3,25 @@ require 'optparse'
 require 'ostruct'
 require 'set'
 require 'shellwords'
-require 'singleton'
 
 module Nrename
   class Options
-    include Singleton
-
-    def default_options
-      {
-        :numbers_only => false,
-        :dirs         => Set.new,
-        :execute      => false,
-        :pattern      => /(\d+)/,
-        :recursive    => false,
-        :rename_dirs  => false,
-        :renumber     => false,
-        :verbose      => true
-      }
-    end
+    DEFAULT_OPTIONS = {
+      :numbers_only => false,
+      :dirs         => Set.new,
+      :execute      => false,
+      :pattern      => /(\d+)/,
+      :recursive    => false,
+      :rename_dirs  => false,
+      :renumber     => false,
+      :verbose      => true
+    }
 
     extend Forwardable
-    def_delegators :options, *instance.default_options.keys
+    def_delegators :options, *DEFAULT_OPTIONS.keys
 
     def options
-      @options ||= OpenStruct.new default_options
-    end
-
-    def reset
-      @options = nil
+      @options ||= OpenStruct.new DEFAULT_OPTIONS
     end
 
     def parser

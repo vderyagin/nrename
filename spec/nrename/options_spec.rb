@@ -6,10 +6,6 @@ describe Nrename::Options do
 
   def_delegator Nrename, :parse_options
 
-  after :each do
-    Nrename.options.reset                 # do not leak state
-  end
-
   let(:defaults) { parse_options([]) }
 
   describe 'verbosity' do

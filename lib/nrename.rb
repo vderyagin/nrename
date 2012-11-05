@@ -15,10 +15,11 @@ module Nrename
   end
 
   def self.options
-    Options.instance
+    @options ||= Options.new
   end
 
   def self.parse_options(args)
+    @options = Options.new
     options.parse args
   end
 end
