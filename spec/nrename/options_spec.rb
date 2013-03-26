@@ -111,13 +111,13 @@ describe Nrename::Options do
     let(:test_dir) { File.expand_path 'test [directory]' }
     let(:subdirs) {  ['aa', 'bb', 'cc', 'foo bar [baz]'] }
 
-    before :all do
+    before :each do
       inside test_dir do
         mkdir subdirs
       end
     end
 
-    after :all do
+    after :each do
       rm_rf test_dir
     end
 
