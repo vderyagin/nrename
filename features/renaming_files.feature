@@ -97,10 +97,9 @@ Feature: Renaming files
     | bb1.txt    |
     | bb10.txt   |
     | cc0023.txt |
-    When I cd to "dir"
-    When I run `nrename -XN .`
+    When I run `nrename -XN dir`
     Then the exit status should be 0
-    And the following files should exist:
+    And the following files should exist inside directory "dir":
     | 01.txt |
     | 10.txt |
     | 23.txt |
