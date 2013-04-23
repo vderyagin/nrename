@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.rubyforge_project = 'nrename'
 
   s.license = 'MIT'
-  s.required_rubygems_version = ">= 1.3.6"
+  s.required_rubygems_version = '>= 1.3.6'
 
   s.files = [
     'MIT-LICENSE',
@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
 
   s.add_development_dependency 'aruba',       '~> 0.5.1'
-  s.add_development_dependency 'guard-rspec', '~> 2.4.1'
+  s.add_development_dependency 'guard-rspec', '~> 2.5.4'
   s.add_development_dependency 'rake',        '~> 10.0.3'
   s.add_development_dependency 'rb-inotify',  '~> 0.9.0'
 end
