@@ -1,7 +1,7 @@
 require 'aruba/cucumber'
 require 'fileutils'
 
-ENV['PATH'] = "#{File.expand_path __FILE__, '../../../bin'}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
+ENV['PATH'] = "#{File.expand_path('../../../bin', __FILE__)}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
 
 application_root = File.expand_path('../../..', __FILE__)
 
