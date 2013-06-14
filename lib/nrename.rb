@@ -1,6 +1,3 @@
-libdir = File.expand_path(File.dirname __FILE__)
-$:.push libdir unless $:.include? libdir
-
 require 'nrename/counter'
 require 'nrename/directory'
 require 'nrename/numbered_file'
