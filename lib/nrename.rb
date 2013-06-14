@@ -10,15 +10,17 @@ require 'nrename/utils'
 require 'nrename/version'
 
 module Nrename
-  def self.executable_name
+  module_function
+
+  def executable_name
     File.basename $PROGRAM_NAME
   end
 
-  def self.options
+  def options
     @options ||= Options.new
   end
 
-  def self.parse_options(args)
+  def parse_options(args)
     @options = Options.new
     options.parse args
   end
