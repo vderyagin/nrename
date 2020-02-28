@@ -41,6 +41,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'aruba',       '~> 0.5.1'
   s.add_development_dependency 'guard-rspec', '~> 3.0.2'
-  s.add_development_dependency 'rake',        '~> 10.0.3'
+  s.add_development_dependency 'rake',        '~> 13.0.1'
   s.add_development_dependency 'rb-inotify',  '~> 0.9.0'
 end
